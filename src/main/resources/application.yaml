@@ -3,8 +3,7 @@ spring:
     username: pet_store
     password: pet_store
     url: jdbc:mysql://localhost:3306/pet_store
-    
-    
+        
   jpa:
     hibernate:
       ddl-auto: create
