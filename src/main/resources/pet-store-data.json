@@ -1,0 +1,9 @@
+{
+	"petStoreId": "1",
+	"petStoreName": "Kitty's Cat Shack",
+	"petStoreAddress": "123 Feline Drive",
+	"petStoreCity": "Catsville",
+	"petStoreState": "CA",
+	"petStoreZip": "12345",
+	"petStorePhone": "562-555-1234" 
+}
