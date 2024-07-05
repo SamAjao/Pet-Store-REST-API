@@ -7,3 +7,12 @@
 	"petStoreZip": "12345",
 	"petStorePhone": "562-555-1234" 
 }
+
+{
+	"petStoreName": "Doug's Dog Depot",
+	"petStoreAddress": "123 Woof Lane",
+	"petStoreCity": "Rufftown",
+	"petStoreState": "CA",
+	"petStoreZip": "12345",
+	"petStorePhone": "562-555-5678" 
+}

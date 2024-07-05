@@ -31,20 +31,20 @@ public class PetStoreData {
 	
 	//Constructor
 	public PetStoreData (PetStore petStore) {
-		this.petStoreId = petStore.getPetStoreId();
-		this.petStoreName = petStore.getPetStoreName();
-		this.petStoreAddress = petStore.getPetStoreAddress();
-		this.petStoreCity = petStore.getPetStoreCity();
-		this.petStoreState = petStore.getPetStoreState();
-		this.petStoreZip = petStore.getPetStoreZip();
-		this.petStorePhone = petStore.getPetStorePhone();
+		petStoreId = petStore.getPetStoreId();
+		petStoreName = petStore.getPetStoreName();
+		petStoreAddress = petStore.getPetStoreAddress();
+		petStoreCity = petStore.getPetStoreCity();
+		petStoreState = petStore.getPetStoreState();
+		petStoreZip = petStore.getPetStoreZip();
+		petStorePhone = petStore.getPetStorePhone();
 		
 		for(Customer customer : petStore.getCustomers() ) {
-			this.customers.add(new PetStoreCustomer(customer));
+			customers.add(new PetStoreCustomer(customer));
 		}
 		
 		for(Employee employee : petStore.getEmployees()) {
-			this.employees.add(new PetStoreEmployee(employee));
+			employees.add(new PetStoreEmployee(employee));
 		}
 	}
 	
@@ -64,7 +64,7 @@ public class PetStoreData {
 			employeePhone = employee.getEmployeePhone();
 			employeeJobTitle = employee.getEmployeeJobTitle();
 		}
-	}
+	}//End PetStoreEmployee() inner Class
 	
 	@Data
 	@NoArgsConstructor
@@ -78,5 +78,6 @@ public class PetStoreData {
 			customerFirstName = customer.getCustomerFirstName();
 			customerLastName = customer.getCustomerLastName();
 		}
-	}
+		
+	}//End PetStoreCustomer() inner Class
 }
