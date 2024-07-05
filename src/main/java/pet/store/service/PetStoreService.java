@@ -48,12 +48,6 @@ public class PetStoreService {
 		PetStore petStore;
 		
 		if(Objects.isNull(petStoreId)) {
-			//Optional<PetStore> opPetStore = petStoreDao.findById(petStoreId);
-			
-			//if(opPetStore.isPresent()) {
-				//throw new DuplicateKeyException("Pet store with ID=" + petStoreId + " already exists");
-			//}
-			
 			petStore = new PetStore();
 		}
 		else {
