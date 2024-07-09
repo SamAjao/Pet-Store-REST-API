@@ -139,7 +139,11 @@ public class PetStoreService {
 		Customer customer = findOrCreateCustomer(petStoreId, customerId);
 		
 		copyCustomerFields(customer, petStoreCustomer);
-		customer.setPetStores(petStoreSet);
+		//customer.setPetStores(petStoreSet);
+		//Merge sets with addAll
+		customer.getPetStores().addAll(petStoreSet);
+		petStore.getCustomers().add(customer);
+		//System.out.println(customer.getPetStores());
 		
 		Customer dbCustomer = customerDao.save(customer);
 		return new PetStoreCustomer(dbCustomer);
