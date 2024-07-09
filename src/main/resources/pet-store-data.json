@@ -32,3 +32,8 @@
 	"employeePhone" : "310-123-4567",
 	"employeeJobTitle" : "Chief Lizard"
 }
+
+{
+	"customerFirstName" : "Sarah",
+	"customerLastName" : "Connor"
+}
