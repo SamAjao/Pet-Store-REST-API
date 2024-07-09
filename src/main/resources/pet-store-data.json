@@ -16,3 +16,12 @@
 	"petStoreZip": "12345",
 	"petStorePhone": "562-555-5678" 
 }
+
+{
+	"petStoreName": "Larry's Lizard Lair",
+	"petStoreAddress": "579 Gecko Gateway",
+	"petStoreCity": "Gatorville",
+	"petStoreState": "FL",
+	"petStoreZip": "12335",
+	"petStorePhone": "123-456-7890" 
+}

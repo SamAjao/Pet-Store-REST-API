@@ -15,13 +15,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pet.store.controller.model.PetStoreData;
+import pet.store.controller.model.PetStoreData.PetStoreEmployee;
+import pet.store.dao.EmployeeDao;
 import pet.store.dao.PetStoreDao;
+import pet.store.entity.Employee;
 import pet.store.entity.PetStore;
 
 @Service
 public class PetStoreService {
 	@Autowired
 	private PetStoreDao petStoreDao;
+	
+	@Autowired
+	private EmployeeDao employeeDao;
 
 	@Transactional(readOnly = false)
 	public PetStoreData savePetStore(PetStoreData petStoreData) {
@@ -61,6 +67,52 @@ public class PetStoreService {
 		return petStoreDao.findById(petStoreId)
 				.orElseThrow(() -> new NoSuchElementException
 						("Pet store with ID=" + petStoreId + " was not found"));
+	}
+
+	@Transactional(readOnly = false)
+	public PetStoreEmployee saveEmployee(Long petStoreId, PetStoreEmployee petStoreEmployee) {
+		PetStore petStore = findPetStoreById(petStoreId);
+		Long employeeId = petStoreEmployee.getEmployeeId();
+		
+		Employee employee = findOrCreateEmployee(petStoreId, employeeId);
+		
+		copyEmployeeFields(employee, petStoreEmployee);
+	}
+
+	private Employee findOrCreateEmployee(Long petStoreId, Long employeeId) {
+		Employee employee;
+		
+		if(Objects.isNull(employeeId)) {
+			employee = new Employee();
+		}
+		else {
+			employee = findEmployeeById(petStoreId, employeeId);
+		}
+		
+		return employee;
+	}
+
+	private Employee findEmployeeById(Long petStoreId, Long employeeId) {
+		Employee employee = employeeDao.findById(employeeId)
+				.orElseThrow(() -> new NoSuchElementException
+						("Employee with ID=" + employeeId + " was not found"));
+		
+		if(employee.getPetStore().getPetStoreId() == petStoreId) {
+			return employee;
+		}
+		else {
+			throw new IllegalArgumentException
+				("Employee with employee_id=" +employeeId + " not found at store with store_id=" + petStoreId);
+		}
+		
+	}
+	
+	private void copyEmployeeFields(Employee employee, PetStoreEmployee petStoreEmployee) {
+		employee.setEmployeeId(petStoreEmployee.getEmployeeId());
+		employee.setEmployeeFirstName(petStoreEmployee.getEmployeeFirstName());
+		employee.setEmployeeLastName(petStoreEmployee.getEmployeeLastName());
+		employee.setEmployeePhone(petStoreEmployee.getEmployeePhone());
+		employee.setEmployeeJobTitle(petStoreEmployee.getEmployeeJobTitle());
 	}
 
 }
