@@ -77,6 +77,12 @@ public class PetStoreService {
 		Employee employee = findOrCreateEmployee(petStoreId, employeeId);
 		
 		copyEmployeeFields(employee, petStoreEmployee);
+		
+		employee.setPetStore(petStore);
+		petStore.getEmployees().add(employee);
+		
+		Employee dbEmployee = employeeDao.save(employee);
+		return new PetStoreEmployee(dbEmployee);
 	}
 
 	private Employee findOrCreateEmployee(Long petStoreId, Long employeeId) {

@@ -25,3 +25,10 @@
 	"petStoreZip": "12335",
 	"petStorePhone": "123-456-7890" 
 }
+
+{
+	"employeeFirstName" : "Dan",
+	"employeeLastName" : "Long",
+	"employeePhone" : "310-123-4567",
+	"employeeJobTitle" : "Chief Lizard"
+}
