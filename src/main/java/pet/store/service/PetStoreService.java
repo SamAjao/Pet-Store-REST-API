@@ -8,6 +8,8 @@
 package pet.store.service;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
@@ -183,6 +185,30 @@ public class PetStoreService {
 		//Only arrive here if customer is found and pet store is not.
 		throw new IllegalArgumentException("Pet store with ID=" + petStoreId + " not found.");
 		
+	}
+
+	
+	@Transactional(readOnly = true)
+	public List<PetStoreData> retrieveAllPetStores() {
+		List<PetStore> petStores = petStoreDao.findAll();
+		List<PetStoreData> response = new LinkedList<PetStoreData>();
+		
+		for(PetStore petStore : petStores) {
+			petStore.getCustomers().clear();
+			petStore.getEmployees().clear();
+			response.add(new PetStoreData(petStore));
+		}
+		
+		return response;
+	}
+
+	@Transactional(readOnly = true)
+	public PetStoreData retrievePetStoreById(Long petStoreId) {
+		PetStore petStore = findPetStoreById(petStoreId);
+		petStore.getCustomers().clear();
+		petStore.getEmployees().clear();
+		
+		return new PetStoreData(petStore);
 	}
 
 }//End PetStoreService() Class
