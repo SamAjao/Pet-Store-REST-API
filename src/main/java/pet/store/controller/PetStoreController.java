@@ -8,9 +8,11 @@
 package pet.store.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -84,6 +86,22 @@ public class PetStoreController {
 		log.info("Retrieving pet store with ID={}", petStoreId);
 		
 		return petStoreService.retrievePetStoreById(petStoreId);
+	}
+	
+	
+	@DeleteMapping("/pet_store")
+	public void deleteAllStores() {
+		log.info("Attempting to delete all pet stores...");
+		throw new UnsupportedOperationException("Deleting all pet stores is not allowed.");
+	}
+	
+	@DeleteMapping("/{petStoreId}")
+	public Map<String,String> deletePetStoreById(@PathVariable Long petStoreId){
+		log.info("Deleting pet store with ID=" + petStoreId);
+		
+		petStoreService.deletePetStoreById(petStoreId);
+		
+		return Map.of("message", "Deletion of pet store with ID=" + petStoreId + " was successful.");
 	}
 
 }//End PetStoreController() Class

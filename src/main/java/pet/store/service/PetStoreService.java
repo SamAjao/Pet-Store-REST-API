@@ -7,12 +7,10 @@
 */
 package pet.store.service;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -134,18 +132,14 @@ public class PetStoreService {
 	@Transactional(readOnly = false)
 	public PetStoreCustomer saveCustomer(Long petStoreId, PetStoreCustomer petStoreCustomer) {
 		PetStore petStore = findPetStoreById(petStoreId);
-		Set<PetStore> petStoreSet = new HashSet<PetStore>();
-		petStoreSet.add(petStore);
 		
 		Long customerId = petStoreCustomer.getCustomerId();
 		Customer customer = findOrCreateCustomer(petStoreId, customerId);
 		
 		copyCustomerFields(customer, petStoreCustomer);
-		//customer.setPetStores(petStoreSet);
-		//Merge sets with addAll
-		customer.getPetStores().addAll(petStoreSet);
+
+		customer.getPetStores().add(petStore);
 		petStore.getCustomers().add(customer);
-		//System.out.println(customer.getPetStores());
 		
 		Customer dbCustomer = customerDao.save(customer);
 		return new PetStoreCustomer(dbCustomer);
@@ -204,11 +198,16 @@ public class PetStoreService {
 
 	@Transactional(readOnly = true)
 	public PetStoreData retrievePetStoreById(Long petStoreId) {
+		
 		PetStore petStore = findPetStoreById(petStoreId);
-		petStore.getCustomers().clear();
-		petStore.getEmployees().clear();
 		
 		return new PetStoreData(petStore);
+	}
+
+	@Transactional(readOnly = false)
+	public void deletePetStoreById(Long petStoreId) {
+		PetStore petStore = findPetStoreById(petStoreId);
+		petStoreDao.delete(petStore);
 	}
 
 }//End PetStoreService() Class
